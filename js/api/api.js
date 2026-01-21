@@ -58,10 +58,21 @@ export function getNewGames() {
 /** 
  * Get upcoming games.
  */
-export function getUpcomingGames() {  
-    const currentDate = new Date().toISOString().split('T')[0];
-    return fetchFromAPI('/games', { dates: `${currentDate},2024-12-31`, ordering: '-added', page_size: 10 });
+export function getUpcomingGames() {
+  const today = new Date();
+  const nextYear = new Date();
+  nextYear.setFullYear(today.getFullYear() + 1);
+
+  const from = today.toISOString().split('T')[0];
+  const to = nextYear.toISOString().split('T')[0];
+
+  return fetchFromAPI('/games', {
+    dates: `${from},${to}`,
+    ordering: 'released',
+    page_size: 10
+  });
 }
+
 
 /**
  * Search gaemes by query.
