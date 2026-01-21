@@ -59,3 +59,11 @@ export function getGameDetails(gameId) {
     return fetchFromAPI(`/games/${gameId}`);
 }
 
+/**
+ * Get game screenshots by ID.
+ * @param {number} gameId - The ID of the game.
+ */
+export function getGameScreenshots(gameId) {  
+    return fetchFromAPI(`/games/${gameId}/screenshots`);
+}
+
