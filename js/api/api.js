@@ -16,3 +16,18 @@ async function fetchFromAPI(endpoint, params = {}) {
     }
     return response.json();
 } 
+
+/**
+ * Get popular games.
+ */
+export function getPopularGames() { 
+    return fetchFromAPI('/games', { ordering: '-rating', page_size: 10 });
+}
+
+/**
+ * Get new games.
+ */
+export function getNewGames() {  
+    const currentDate = new Date().toISOString().split('T')[0];
+    return fetchFromAPI('/games', { dates: `2023-01-01,${currentDate}`, ordering: '-released', page_size: 10 });
+}
