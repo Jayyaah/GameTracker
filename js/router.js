@@ -3,7 +3,7 @@ import { gameView } from "./views/gameView.js";
 
 const routes = {
   "/": homeView,
-  "/game": gameView
+  "/game": gameView,
 };
 
 export function router() {
@@ -11,9 +11,22 @@ export function router() {
   if (!app) return;
 
   if (!location.hash || location.hash === "#/" || location.hash === "#") {
-    routes["/"]();
+    homeView();
     return;
   }
 
-  app.innerHTML = "<h2>Page introuvable</h2>";
+  const hash = location.hash.replace("#", "");
+  const parts = hash.split("/").filter(Boolean);
+
+  const path = `/${parts[0]}`;
+  const param = parts[1];
+
+  const view = routes[path];
+
+  if (!view) {
+    app.innerHTML = "<h2>Page introuvable</h2>";
+    return;
+  }
+
+  view(param);
 }
