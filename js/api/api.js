@@ -51,3 +51,11 @@ export function searchGames(query) {
     return fetchFromAPI('/games', { search: query, page_size: 10 });
 }
 
+/**
+ * Get game details by ID.
+ * @param {number} gameId - The ID of the game.
+ */
+export function getGameDetails(gameId) {  
+    return fetchFromAPI(`/games/${gameId}`);
+}
+
