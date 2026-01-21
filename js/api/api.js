@@ -10,17 +10,25 @@ async function fetchFromAPI(endpoint, params = {}) {
   const url = new URL(`${BASE_URL}${endpoint}`);
   url.searchParams.append('key', API_KEY);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+    
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Fetch error:', error);
+        throw error;
     }
-    return response.json();
 } 
 
 /**
  * Get popular games.
  */
-export function getPopularGames() { 
+export function getPopularGames(page = 1) { 
     return fetchFromAPI('/games', { 
         ordering: '-rating', 
         page_size: 10 
@@ -33,7 +41,19 @@ export function getPopularGames() {
 export function getNewGames() {  
     const currentDate = new Date().toISOString().split('T')[0];
     return fetchFromAPI('/games', { dates: `2023-01-01,${currentDate}`, ordering: '-released', page_size: 10 });
+  const lastMonth = new Date();
+  lastMonth.setMonth(today.getMonth() - 1);
+
+  const from = lastMonth.toISOString().split('T')[0];
+  const to = today.toISOString().split('T')[0];
+
+  return fetchFromAPI('/games', {
+    dates: `${from},${to}`,
+    ordering: '-released',
+    page_size: 10
+  });
 }
+
 
 /** 
  * Get upcoming games.
@@ -48,7 +68,13 @@ export function getUpcomingGames() {
  * @param {string} query - The search query.
  */
 export function searchGames(query) {  
-    return fetchFromAPI('/games', { search: query, page_size: 10 });
+    if (!query || query.trim().length < 2) {
+        return Promise.resolve({ results: [] });
+    }
+    return fetchFromAPI('/games', { 
+        search: query, 
+        page_size: 10 
+    });
 }
 
 /**
