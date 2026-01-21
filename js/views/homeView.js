@@ -9,7 +9,6 @@ import { createErrorMessage } from '../components/errorMessage.js';
 import { createGameGrid } from '../components/gameGrid.js';
 
 export async function homeView() {
-  console.log("HOME VIEW OK");
   const app = document.getElementById('app');
   app.innerHTML = '';
 
