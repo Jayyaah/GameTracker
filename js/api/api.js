@@ -31,16 +31,16 @@ async function fetchFromAPI(endpoint, params = {}) {
 export function getPopularGames(page = 1) { 
     return fetchFromAPI('/games', { 
         ordering: '-rating', 
-        page_size: 10 
+        page_size: 10,
+        page
     });
 }
 
 /**
  * Get new games.
  */
-export function getNewGames() {  
-    const currentDate = new Date().toISOString().split('T')[0];
-    return fetchFromAPI('/games', { dates: `2023-01-01,${currentDate}`, ordering: '-released', page_size: 10 });
+export function getNewGames() {
+  const today = new Date();
   const lastMonth = new Date();
   lastMonth.setMonth(today.getMonth() - 1);
 
