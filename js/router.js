@@ -1,7 +1,9 @@
 import { homeView } from "./views/homeView.js";
+import { gameView } from "./views/gameView.js";
 
 const routes = {
   "/": homeView,
+  "/game": gameView
 };
 
 export function router() {
