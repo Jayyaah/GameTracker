@@ -21,7 +21,10 @@ async function fetchFromAPI(endpoint, params = {}) {
  * Get popular games.
  */
 export function getPopularGames() { 
-    return fetchFromAPI('/games', { ordering: '-rating', page_size: 10 });
+    return fetchFromAPI('/games', { 
+        ordering: '-rating', 
+        page_size: 10 
+    });
 }
 
 /**
