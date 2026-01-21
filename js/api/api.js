@@ -33,7 +33,7 @@ export function getPopularGames() {
 export function getNewGames() {  
     const currentDate = new Date().toISOString().split('T')[0];
     return fetchFromAPI('/games', { dates: `2023-01-01,${currentDate}`, ordering: '-released', page_size: 10 });
-}}
+}
 
 /** 
  * Get upcoming games.
@@ -42,3 +42,12 @@ export function getUpcomingGames() {
     const currentDate = new Date().toISOString().split('T')[0];
     return fetchFromAPI('/games', { dates: `${currentDate},2024-12-31`, ordering: '-added', page_size: 10 });
 }
+
+/**
+ * Search gaemes by query.
+ * @param {string} query - The search query.
+ */
+export function searchGames(query) {  
+    return fetchFromAPI('/games', { search: query, page_size: 10 });
+}
+
