@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameTracker</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
 <body>
-    <h1>Welcome to GameTracker</h1>
-    <script src="script.js"></script>
+  <header>
+    <h1>GameTracker</h1>
+    <input type="search" id="searchInput" placeholder="Rechercher un jeu...">
+    <nav>
+      <a href="#/">Accueil</a>
+      <a href="#/favorites">Mes favoris</a>
+    </nav>
+  </header>
+
+  <main id="app">
+    <!-- Contenu injecté dynamiquement -->
+  </main>
+
+  <script type="module" src="./js/main.js"></script>
 </body>
-</html>
