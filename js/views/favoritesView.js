@@ -1,5 +1,5 @@
-import { createGameGrid } from "../components/gameGrid";
-import { getFavorites } from "../utils/storage";
+import { createGameGrid } from "../components/gameGrid.js";
+import { getFavorites } from "../utils/storage.js";
 
 export function favoritesView() {
     const app = document.getElementById('app');
