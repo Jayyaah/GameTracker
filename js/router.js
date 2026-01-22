@@ -1,9 +1,11 @@
 import { homeView } from "./views/homeView.js";
 import { gameView } from "./views/gameView.js";
+import { favoritesView } from "./views/favoritesView.js";
 
 const routes = {
   "/": homeView,
   "/game": gameView,
+  "/favorites": favoritesView,
 };
 
 export function router() {
