@@ -12,7 +12,7 @@ export function toggleFavorite(game) {
     const favorites = getFavorites();
     const gameIndex = favorites.findIndex(fav => fav.id === game.id);
 
-    if (index === -1) {
+    if (gameIndex === -1) {
         favorites.push(game);
     } else {    
         favorites.splice(gameIndex, 1);
