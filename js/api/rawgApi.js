@@ -73,9 +73,16 @@ export function getUpcomingGames() {
   });
 }
 
+/** 
+ * Get genres games.
+ */
+export function getGenres() {  
+    return fetchFromAPI('/genres');
+}
+
 
 /**
- * Search gaemes by query.
+ * Search games by query.
  * @param {string} query - The search query.
  */
 export function searchGames(query) {  
