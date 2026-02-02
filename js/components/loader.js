@@ -7,4 +7,3 @@ export function createLoader() {
   `;
   return loader;
 }
-
