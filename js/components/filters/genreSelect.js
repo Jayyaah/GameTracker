@@ -11,7 +11,7 @@ export function genreSelect(genres, onChange) {
 
   genres.forEach(g => {
     const option = document.createElement('option');
-    option.value = g.name; // IMPORTANT : on filtre par name
+    option.value = g.name;
     option.textContent = g.name;
     selectElement.appendChild(option);
   });
