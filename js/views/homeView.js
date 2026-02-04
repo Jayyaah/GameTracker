@@ -2,7 +2,8 @@ import {
   getPopularGames,
   getNewGames,
   getUpcomingGames,
-  getGenres
+  getGenres,
+  getPlatforms
 } from '../api/rawgApi.js';
 
 import { createLoader } from '../components/loader.js';
@@ -37,7 +38,8 @@ export async function homeView() {
     const upcomingGamesList = upcoming.results;
     const genresData = await getGenres();
     const genres = genresData.results;
-
+    const plateformsData = await getPlatforms();
+    const plateforms = plateformsData.results.map(p => ({ value: p.slug, label: p.name }));
     // 🔹 Structure de la page
     app.innerHTML = `
       <div class="filters"></div>
@@ -78,7 +80,7 @@ export async function homeView() {
       );
     }
 
-    const platformSelect = initPlatformFilterSelect((value) => {
+    const platformSelect = initPlatformFilterSelect(plateforms, (value) => {
       activeFilters.platform = value;
       render();
     });
