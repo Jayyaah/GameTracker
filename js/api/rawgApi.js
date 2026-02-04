@@ -80,6 +80,13 @@ export function getGenres() {
     return fetchFromAPI('/genres');
 }
 
+/** 
+ * Get platforms games.
+ */
+export function getPlatforms() {  
+    return fetchFromAPI('/platforms/lists/parents');
+}
+
 
 /**
  * Search games by query.
