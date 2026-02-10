@@ -118,3 +118,24 @@ export function getGameScreenshots(gameId) {
     return fetchFromAPI(`/games/${gameId}/screenshots`);
 }
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
+export function getDiscoverGames({ platform, genre, page = 1 }) {
+  const params = {
+    page,
+    page_size: 20
+  };
+
+  if (platform) {
+    params.platforms = platform;
+  }
+
+  if (genre) {
+    params.genres = genre;
+  }
+
+  return fetchFromAPI('/games', params);
+}
