@@ -5,13 +5,13 @@ function initPlatformFilterSelect(platforms, onChange) {
 
   const defaultOption = document.createElement('option');
   defaultOption.value = '';
-  defaultOption.textContent = 'Toutes les platformes';
+  defaultOption.textContent = 'Toutes les plateformes';
   selectElement.appendChild(defaultOption);
 
   platforms.forEach(p => {
     const option = document.createElement('option');
-    option.value = p.value;
-    option.textContent = p.label;
+    option.value = p.id;      // ID RAWG (PS4, PS5, etc.)
+    option.textContent = p.name;
     selectElement.appendChild(option);
   });
 
