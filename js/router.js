@@ -1,11 +1,13 @@
 import { homeView } from "./views/homeView.js";
 import { gameView } from "./views/gameView.js";
 import { favoritesView } from "./views/favoritesView.js";
+import { discoverView } from "./views/discoverView.js";
 
 const routes = {
   "/": homeView,
   "/game": gameView,
   "/favorites": favoritesView,
+  "/discover": discoverView
 };
 
 export function router() {
@@ -17,7 +19,7 @@ export function router() {
     return;
   }
 
-  const hash = location.hash.replace("#", "");
+  const hash = location.hash.replace("#", "").split("?")[0];
   const parts = hash.split("/").filter(Boolean);
 
   const path = `/${parts[0]}`;
