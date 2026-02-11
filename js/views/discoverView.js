@@ -15,11 +15,9 @@ export async function discoverView() {
   const params = new URLSearchParams(queryString);
 
   const filters = {
-    platform: params.get('platform'),
-    genre: params.get('genre')
+    platform: params.get('platforms'),
+    genre: params.get('genres')
   };
-
-  console.log('Filtres lus depuis l’URL :', filters);
 
   if (!filters.platform && !filters.genre) {
     window.location.hash = '#/';
@@ -27,7 +25,6 @@ export async function discoverView() {
   }
 
   try {
-    console.log('Filtres envoyés à l’API RAWG :', filters);
     const data = await getDiscoverGames(filters);
     const games = data.results;
 
@@ -53,11 +50,11 @@ export function buildDiscoverUrl(filters) {
   const params = new URLSearchParams();
 
   if (filters.platform) {
-    params.append('platform', filters.platform);
+    params.append('platforms', filters.platform);
   }
 
   if (filters.genre) {
-    params.append('genre', filters.genre);
+    params.append('genres', filters.genre);
   }
 
   return `#/discover?${params.toString()}`;
