@@ -9,7 +9,7 @@ import {
 import { createLoader } from '../components/loader.js';
 import { createErrorMessage } from '../components/errorMessage.js';
 import { createGameGrid } from '../components/gameGrid.js';
-
+import { filterGames } from '../utils/filterGames.js';
 import { initPlatformFilterSelect } from '../components/filters/platformSelect.js';
 import { genreSelect } from '../components/filters/genreSelect.js';
 import { buildDiscoverUrl } from './discoverView.js';
