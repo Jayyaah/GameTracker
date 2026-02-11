@@ -19,12 +19,15 @@ export async function discoverView() {
     genre: params.get('genre')
   };
 
+  console.log('Filtres lus depuis l’URL :', filters);
+
   if (!filters.platform && !filters.genre) {
     window.location.hash = '#/';
     return;
   }
 
   try {
+    console.log('Filtres envoyés à l’API RAWG :', filters);
     const data = await getDiscoverGames(filters);
     const games = data.results;
 
