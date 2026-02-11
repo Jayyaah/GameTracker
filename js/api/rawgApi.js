@@ -123,19 +123,19 @@ export function getGameScreenshots(gameId) {
  * @param {*} param0 
  * @returns 
  */
-export function getDiscoverGames({ platform, genre, page = 1 }) {
-  const params = {
-    page,
-    page_size: 20
-  };
+export async function getDiscoverGames(filters) {
+  const params = new URLSearchParams();
 
-  if (platform) {
-    params.platforms = platform;
+  if (filters.platform) {
+    params.append('platforms', filters.platform);
   }
 
-  if (genre) {
-    params.genres = genre;
+  if (filters.genre) {
+    params.append('genres', filters.genre);
   }
 
-  return fetchFromAPI('/games', params);
+  params.append('page_size', '40');
+console.log('RAWG discover params:', params.toString());
+
+  return fetchFromApi(`/games?${params.toString()}`);
 }
