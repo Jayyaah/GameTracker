@@ -39,8 +39,11 @@ export async function homeView() {
     const genresData = await getGenres();
     const genres = genresData.results;
     const plateformsData = await getPlatforms();
-    const plateforms = plateformsData.results;
-    // 🔹 Structure de la page
+    const plateforms = plateformsData.results.map(p => ({
+      value: p.id,
+      label: p.name
+    }));
+
     app.innerHTML = `
       <div class="filters"></div>
 
