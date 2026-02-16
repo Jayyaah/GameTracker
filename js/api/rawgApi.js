@@ -134,8 +134,10 @@ export async function getDiscoverGames(filters) {
     params.append('genres', filters.genre);
   }
 
+  params.append('ordering', '-rating');
   params.append('page_size', '40');
-console.log('RAWG discover params:', params.toString());
+
+  console.log('RAWG discover params:', params.toString());
 
   return fetchFromApi(`/games?${params.toString()}`);
 }
