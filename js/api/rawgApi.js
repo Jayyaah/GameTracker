@@ -84,7 +84,7 @@ export function getGenres() {
  * Get platforms games.
  */
 export function getPlatforms() {  
-    return fetchFromAPI('/platforms/lists/parents');
+    return fetchFromAPI('/platforms');
 }
 
 
@@ -139,5 +139,5 @@ export async function getDiscoverGames(filters) {
 
   console.log('RAWG discover params:', params.toString());
 
-  return fetchFromApi(`/games?${params.toString()}`);
+  return fetchFromAPI(`/games?${params.toString()}`);
 }
