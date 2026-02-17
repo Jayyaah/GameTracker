@@ -51,8 +51,6 @@ export async function gameView(gameId) {
       <p><strong>Plateformes :</strong>
         ${game.platforms.map(p => p.platform.name).join(", ")}
       </p>
-
-      <p>${game.description_raw ?? "Pas de description disponible."}</p>
     `;
 
     section.querySelector("#backBtn").addEventListener("click", () => {
@@ -72,6 +70,18 @@ export async function gameView(gameId) {
         ? "❤️ Retirer des favoris"
         : "🤍 Ajouter aux favoris";
     });
+
+    const mainImage = document.createElement("img");
+    mainImage.src = game.background_image;
+    mainImage.alt = game.name;
+    mainImage.className = "game-main-image";
+    section.appendChild(mainImage);
+
+    const description = document.createElement("p");
+    description.className = "game-description";
+    description.textContent =
+      game.description_raw ?? "Pas de description disponible.";
+    section.appendChild(description);
 
     if (screenshots.results.length > 0) {
       section.appendChild(
