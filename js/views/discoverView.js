@@ -27,7 +27,10 @@ export async function discoverView() {
     ]);
 
     const games = gamesData.results;
-    const platforms = platformsData.results;
+    const platforms = platformsData.results.map(p => ({
+      value: p.id,
+      label: p.name
+    }));
     const genres = genresData.results;
 
     app.innerHTML = `
