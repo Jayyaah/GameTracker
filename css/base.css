@@ -1,42 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap');
+
+/* =============================================
+   BASE — CYBERPUNK NEON
+   ============================================= */
+
 :root {
-  --bg: #0f172a;
-  --surface: #1e293b;
-  --card: #111827;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --primary: #3b82f6;
-  --accent: #22c55e;
-  --danger: #ef4444;
-  --radius: 12px;
+  /* Core Palette */
+  --bg:          #030712;
+  --bg-deep:     #010409;
+  --surface:     #0d1117;
+  --surface-2:   #161b22;
+  --card:        #0d1117;
+  --card-hover:  #111820;
+
+  /* Neon Accents */
+  --neon-cyan:   #00f5ff;
+  --neon-pink:   #ff0080;
+  --neon-yellow: #f5e642;
+  --neon-green:  #39ff14;
+  --neon-purple: #bf00ff;
+
+  /* Text */
+  --text:        #c9d1d9;
+  --text-bright: #f0f6fc;
+  --muted:       #484f58;
+  --muted-light: #8b949e;
+
+  /* Semantic */
+  --primary:     var(--neon-cyan);
+  --accent:      var(--neon-pink);
+  --danger:      #ff3b30;
+  --success:     var(--neon-green);
+  --warning:     var(--neon-yellow);
+
+  /* Glows */
+  --glow-cyan:   0 0 8px #00f5ff88, 0 0 24px #00f5ff44, 0 0 60px #00f5ff18;
+  --glow-pink:   0 0 8px #ff008088, 0 0 24px #ff008044, 0 0 60px #ff008018;
+  --glow-yellow: 0 0 8px #f5e64288, 0 0 24px #f5e64244;
+  --glow-green:  0 0 8px #39ff1488, 0 0 24px #39ff1444;
+
+  /* Borders */
+  --border:      1px solid #21262d;
+  --border-neon: 1px solid var(--neon-cyan);
+
+  /* Layout */
+  --radius:      4px;
+  --radius-lg:   8px;
+
+  /* Typography */
+  --font-display: 'Orbitron', monospace;
+  --font-mono:    'Share Tech Mono', monospace;
+  --font-body:    'Exo 2', system-ui, sans-serif;
+
+  /* Transitions */
+  --ease-neon:   cubic-bezier(0.23, 1, 0.32, 1);
 }
+
+/* =============================================
+   RESET + GLOBAL
+   ============================================= */
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg);
   color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  /* Scanline overlay */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 245, 255, 0.012) 2px,
+      rgba(0, 245, 255, 0.012) 4px
+    );
 }
 
+/* Noise texture layer */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* =============================================
+   LINKS
+   ============================================= */
+
 a {
-  color: var(--primary);
+  color: var(--neon-cyan);
   text-decoration: none;
+  position: relative;
+  transition: color 0.2s, text-shadow 0.2s;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--text-bright);
+  text-shadow: var(--glow-cyan);
 }
+
+/* =============================================
+   IMAGES
+   ============================================= */
 
 img {
   max-width: 100%;
   display: block;
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 3px;
+  box-shadow: var(--glow-cyan);
+}
+
+/* =============================================
+   SELECTION
+   ============================================= */
+
+::selection {
+  background: rgba(0, 245, 255, 0.25);
+  color: var(--neon-cyan);
+}
+
+/* =============================================
+   KEYFRAMES — GLOBAL
+   ============================================= */
+
+@keyframes neon-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55%                           { opacity: 0.4; }
+}
+
+@keyframes scan-line {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100vh); }
+}
+
+@keyframes glitch-shift {
+  0%   { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 0); }
+  20%  { clip-path: inset(92% 0 1%  0); transform: translate(2px, 0);  }
+  40%  { clip-path: inset(43% 0 1%  0); transform: translate(0, 0);    }
+  60%  { clip-path: inset(25% 0 58% 0); transform: translate(1px, 0);  }
+  80%  { clip-path: inset(54% 0 7%  0); transform: translate(-1px, 0); }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(0, 0);    }
+}
+
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes border-run {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
 }
