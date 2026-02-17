@@ -1,19 +1,6 @@
-export function createGameCarousel(images) {
-  let currentIndex = 0;
-
+export function createGameCarousel(screenshots) {
   const carousel = document.createElement('div');
-  carousel.className = 'game-carousel';
-
-  const track = document.createElement('div');
-  track.className = 'carousel-track';
-
-  images.forEach((img, index) => {
-    const image = document.createElement('img');
-    image.src = img.image;
-    image.className = 'carousel-image';
-    if (index === 0) image.classList.add('active');
-    track.appendChild(image);
-  });
+  carousel.className = 'carousel';
 
   const prevBtn = document.createElement('button');
   prevBtn.className = 'carousel-btn prev';
@@ -23,25 +10,39 @@ export function createGameCarousel(images) {
   nextBtn.className = 'carousel-btn next';
   nextBtn.textContent = '›';
 
-  function updateCarousel() {
-    const imgs = track.querySelectorAll('.carousel-image');
-    imgs.forEach(img => img.classList.remove('active'));
-    imgs[currentIndex].classList.add('active');
+  const viewport = document.createElement('div');
+  viewport.className = 'carousel-viewport';
+
+  const track = document.createElement('div');
+  track.className = 'carousel-track';
+
+  screenshots.forEach(s => {
+    const img = document.createElement('img');
+    img.src = s.image;
+    img.alt = 'Screenshot du jeu';
+    track.appendChild(img);
+  });
+
+  viewport.appendChild(track);
+  carousel.appendChild(prevBtn);
+  carousel.appendChild(viewport);
+  carousel.appendChild(nextBtn);
+
+  let index = 0;
+
+  function update() {
+    track.style.transform = `translateX(-${index * 100}%)`;
   }
 
   prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    updateCarousel();
+    index = index > 0 ? index - 1 : screenshots.length - 1;
+    update();
   });
 
   nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateCarousel();
+    index = index < screenshots.length - 1 ? index + 1 : 0;
+    update();
   });
-
-  carousel.appendChild(prevBtn);
-  carousel.appendChild(track);
-  carousel.appendChild(nextBtn);
 
   return carousel;
 }
