@@ -10,8 +10,8 @@ function initPlatformFilterSelect(platforms, onChange) {
 
   platforms.forEach(p => {
     const option = document.createElement('option');
-    option.value = p.id;      // ID RAWG (PS4, PS5, etc.)
-    option.textContent = p.name;
+    option.value = p.value;
+    option.textContent = p.label;
     selectElement.appendChild(option);
   });
 
