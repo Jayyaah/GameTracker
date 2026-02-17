@@ -5,7 +5,7 @@ import {
 
 import { createLoader } from "../components/loader.js";
 import { createErrorMessage } from "../components/errorMessage.js";
-import { createScreenshotGallery } from "../components/screenshotGallery.js";
+import { createGameCarousel } from "../components/gameCarousel.js";
 
 import {
   toggleFavorite,
@@ -41,8 +41,6 @@ export async function gameView(gameId) {
         ${isFav ? "❤️ Retirer des favoris" : "🤍 Ajouter aux favoris"}
       </button>
 
-      <img src="${game.background_image}" alt="${game.name}" />
-
       <p><strong>Note Metacritic :</strong> ${game.metacritic ?? "N/A"}</p>
       <p><strong>Date de sortie :</strong> ${game.released ?? "N/A"}</p>
 
@@ -75,11 +73,13 @@ export async function gameView(gameId) {
         : "🤍 Ajouter aux favoris";
     });
 
-    app.appendChild(section);
+    if (screenshots.results.length > 0) {
+      section.appendChild(
+        createGameCarousel(screenshots.results)
+      );
+    }
 
-    app.appendChild(
-      createScreenshotGallery(screenshots.results)
-    );
+    app.appendChild(section);
 
   } catch (error) {
     app.innerHTML = "";
